@@ -1,7 +1,7 @@
 const request = require("request");
 const himalaya = require('himalaya');
 const fs = require('fs');
-var JSON = require("JSON");
+var replaceall = require("replaceall");
 
 const schemaDotOrgLink = 'application/ld+json';
 
@@ -95,74 +95,75 @@ function extractJsonLd(json, dest) {
             if (element.children)
                 extractJsonLd(element, dest);
         }
-        // console.log(isTagElement(element) + ':' + JSON.stringify(element));
     }
 }
 
-function parse(body, demo) {
-    // console.log(body.toString());
+function parse(body) {
+    const replacements = ['<![CDATA[', ']]>'];
+    replacements.forEach(function (str) {
+        body = replaceall.replaceall(str, '', body);
+    });
     var json = himalaya.parse(body.toString());
     var html = getElementOfJsonList(json, 'tagName', 'html');
 
-    if (!demo) {
-        var dest = [];
-        extractJsonLd(html, dest);
 
-        //remove cdata
-        //todo test it
-        var temp = JSON.stringify(dest);
-        dest = JSON.parse(temp.replace("<![CDATA[", "").replace("]]>", ""));
+    var dest = [];
+    extractJsonLd(html, dest);
 
-        return dest;
-    } else {
-        var jsonld =
-            '{' +
-            '"@context": "http://schema.org/", ' +
-            '"@type": "Movie", ' +
-            '"name": "Avatar", ' +
-            '"director":' +
-            '{"@type": "Person",' +
-            '"name": "James Cameron",' +
-            '"birthDate": "1954-08-16"}, ' +
-            '"genre": "Science fiction",' +
-            '"trailer": "../movies/avatar-theatrical-trailer.html"' +
-            '}';
-        return ([JSON.parse(jsonld)]);
-    }
+    dest = JSON.parse(JSON.stringify(dest));
+
+    return dest;
 }
 
-function getSchemaFromFile(fileUrl, callback, demo) {
-    fs.readFile(fileUrl, 'utf8', function (err, data) {
-        if (err) {
-            return callback(null, err);
-        }
-        callback(parse(data));
+/**
+ * @param fileUrl the filepath to the html file, that should be inspected
+ * @returns {Promise}
+ */
+function getSchemaFromFile(fileUrl) {
+    return new Promise(function (ok, fail) {
+        fs.readFile(fileUrl, 'utf8', function (err, data) {
+            if (err) {
+                return fail(err);
+            }
+            ok(parse(data));
+        });
     });
 }
 
 /**
  * @param url the url to be inspected
- * @param callback will be called with two parameters:<br>
- *     <ul>
- *         <li>the json-ld object or null, if nothing was found</li>
- *         <li>an error, if one occurred, else null</li>
- *     </ul>
+ * @returns {Promise}
  */
-function getMyBodyFromUri(url, callback, demo) {
-    request({
-        url: url,
-        json: true
-    }, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            callback(parse(body, demo));
-        } else {
-            if (url.startsWith('www.')) {
-                return getMyBodyFromUri('http://' + url, callback, demo);
+function getMyBodyFromUri(url) {
+    return new Promise(function (ok, fail) {
+        request({
+            url: url,
+            json: true
+        }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                ok(parse(body));
+            } else {
+                const tryHttps = function () {
+                    if (!url.startsWith('https://')) {
+                        if (url.startsWith('www.'))
+                            url = url.substr('www.'.length, url.length);
+                        console.log('try https: "' +  ('https://' + url) + '"');
+                        return getMyBodyFromUri('https://' + url).then(ok).catch(fail);
+                    }
+
+                };
+                if (!url.startsWith('www.') && !url.startsWith('http://') && !url.startsWith('https://')) {
+                    return getMyBodyFromUri('http://www.' + url).then(ok).catch(tryHttps);
+                }
+                if (url.startsWith('www.')) {
+                    console.log(url);
+                    return getMyBodyFromUri('http://' + url).then(ok).catch(tryHttps);
+                }
+                if (error.message.toString().indexOf('getaddrinfo ENOTFOUND') > -1)
+                    return fail(new Error('URL not found!'));
+                fail(error);
             }
-            if (error.message.toString().indexOf('getaddrinfo ENOTFOUND') > -1)
-                return callback(null, new Error('URL not found!'));
-            callback(null, error);
-        }
+        });
     });
 }
 
