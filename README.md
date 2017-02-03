@@ -1,4 +1,4 @@
-This parser is used to get the json-ld from any website. The json-ld should have an schema.org annotation.
+This parser is used to get the json-ld from any website. The json-ld should have a schema.org annotation.
 
 **Installation**
 ```
@@ -15,5 +15,5 @@ parser.getJsonLdOfUrl(url).then(function(result) {
   ...
 }).catch(function(error) {
   ...
-})
+});
 ```
