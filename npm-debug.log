@@ -1,0 +1,107 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@3.10.9
+3 info using node@v7.2.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/patricklanzinger/WebstormProjects/json-ld-parser',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/patricklanzinger/.npm/schema-org-parser-json-ld/1.2.0/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/patricklanzinger/.npm correctMkdir not in flight; initializing
+10 info lifecycle schema-org-parser-json-ld@1.2.0~prepublish: schema-org-parser-json-ld@1.2.0
+11 silly lifecycle schema-org-parser-json-ld@1.2.0~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/Users/patricklanzinger/.npm/schema-org-parser-json-ld/1.2.0/package.tgz',
+12 verbose tar pack   '/Users/patricklanzinger/WebstormProjects/json-ld-parser' ]
+13 verbose tarball /Users/patricklanzinger/.npm/schema-org-parser-json-ld/1.2.0/package.tgz
+14 verbose folder /Users/patricklanzinger/WebstormProjects/json-ld-parser
+15 verbose addLocalTarball adding from inside cache /Users/patricklanzinger/.npm/schema-org-parser-json-ld/1.2.0/package.tgz
+16 verbose correctMkdir /Users/patricklanzinger/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd schema-org-parser-json-ld@1.2.0
+18 verbose afterAdd /Users/patricklanzinger/.npm/schema-org-parser-json-ld/1.2.0/package/package.json not in flight; writing
+19 verbose correctMkdir /Users/patricklanzinger/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /Users/patricklanzinger/.npm/schema-org-parser-json-ld/1.2.0/package/package.json written
+21 silly publish { name: 'schema-org-parser-json-ld',
+21 silly publish   version: '1.2.0',
+21 silly publish   main: 'index.js',
+21 silly publish   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+21 silly publish   keywords: [ 'schema.org', 'jsonld' ],
+21 silly publish   author: { name: 'freshp' },
+21 silly publish   license: 'ISC',
+21 silly publish   dependencies:
+21 silly publish    { JSON: '^1.0.0',
+21 silly publish      fs: '0.0.1-security',
+21 silly publish      himalaya: '^0.2.2',
+21 silly publish      request: '^2.79.0' },
+21 silly publish   readme: 'This parser is used to get the json-ld from any website. The json-ld should have a schema.org annotation.\n\n**Installation**\n```\nnpm install schema-org-parser-json-ld\n```\n\n**Example**\n\n```javascript\nvar parser = require(\'schema-org-parser-json-ld\');\n...\n\nparser.getJsonLdOfUrl(url).then(function(result) {\n  ...\n}).catch(function(error) {\n  ...\n});\n```\n',
+21 silly publish   readmeFilename: 'README.md',
+21 silly publish   gitHead: 'cee460d7de7ebde32d7294b3eb7610b32a5ae524',
+21 silly publish   description: 'This parser is used to get the json-ld from any website. The json-ld should have a schema.org annotation.',
+21 silly publish   _id: 'schema-org-parser-json-ld@1.2.0',
+21 silly publish   _shasum: '8316c1f78f16fdf38a55ba1ce8dedb9a91a4fca2',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig undefined
+23 silly mapToRegistry name schema-org-parser-json-ld
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'schema-org-parser-json-ld',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   escapedName: 'schema-org-parser-json-ld',
+26 silly mapToRegistry   name: 'schema-org-parser-json-ld',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri https://registry.npmjs.org/schema-org-parser-json-ld
+28 verbose publish registryBase https://registry.npmjs.org/
+29 silly publish uploading /Users/patricklanzinger/.npm/schema-org-parser-json-ld/1.2.0/package.tgz
+30 verbose request uri https://registry.npmjs.org/schema-org-parser-json-ld
+31 verbose request sending authorization for write operation
+32 info attempt registry request try #1 at 9:28:21 AM
+33 verbose request using bearer token for auth
+34 verbose request id 8591d65510a507d6
+35 http request PUT https://registry.npmjs.org/schema-org-parser-json-ld
+36 http 403 https://registry.npmjs.org/schema-org-parser-json-ld
+37 verbose headers { 'content-type': 'application/json',
+37 verbose headers   'cache-control': 'max-age=300',
+37 verbose headers   'content-length': '95',
+37 verbose headers   'accept-ranges': 'bytes',
+37 verbose headers   date: 'Fri, 03 Feb 2017 08:28:19 GMT',
+37 verbose headers   via: '1.1 varnish',
+37 verbose headers   connection: 'keep-alive',
+37 verbose headers   'x-served-by': 'cache-fra1249-FRA',
+37 verbose headers   'x-cache': 'MISS',
+37 verbose headers   'x-cache-hits': '0',
+37 verbose headers   'x-timer': 'S1486110498.540967,VS0,VE902',
+37 verbose headers   vary: 'Accept-Encoding' }
+38 verbose request invalidating /Users/patricklanzinger/.npm/registry.npmjs.org/schema-org-parser-json-ld on PUT
+39 error publish Failed PUT 403
+40 verbose stack Error: "You cannot publish over the previously published version 1.2.0." : schema-org-parser-json-ld
+40 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+40 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
+40 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+40 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:187:22)
+40 verbose stack     at emitTwo (events.js:106:13)
+40 verbose stack     at Request.emit (events.js:191:7)
+40 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1048:10)
+40 verbose stack     at emitOne (events.js:96:13)
+40 verbose stack     at Request.emit (events.js:188:7)
+40 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:969:12)
+41 verbose statusCode 403
+42 verbose pkgid schema-org-parser-json-ld
+43 verbose cwd /Users/patricklanzinger/WebstormProjects/json-ld-parser
+44 error Darwin 16.3.0
+45 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+46 error node v7.2.0
+47 error npm  v3.10.9
+48 error code E403
+49 error "You cannot publish over the previously published version 1.2.0." : schema-org-parser-json-ld
+50 error If you need help, you may report this error at:
+50 error     <https://github.com/npm/npm/issues>
+51 verbose exit [ 1, true ]
