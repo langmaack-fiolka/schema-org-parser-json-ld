@@ -17,3 +17,6 @@ parser.getJsonLdOfUrl(url).then(function(result) {
   ...
 });
 ```
+**Test Programm**
+
+[schema-org-parser-json-ld-test-website](https://github.com/freshp1995/schema-org-parser-json-ld-test-website)
